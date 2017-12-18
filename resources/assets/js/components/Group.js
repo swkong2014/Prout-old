@@ -27,8 +27,12 @@ class Group extends Component {
     constructor(props){
         super(props);
         this.state = {
-            group: props
+            group: props.group
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({group:nextProps.group});
     }
 
     render(){

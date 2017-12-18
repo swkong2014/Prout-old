@@ -40,10 +40,6 @@ class GroupsController extends Controller
 
     public function delete(Group $group)
     {
-//        foreach($group->Memberships() as $membership){
-//            $membership->delete();
-//        }
-
         $group->delete();
 
         return response()->json(null, 204);
@@ -67,9 +63,6 @@ class GroupsController extends Controller
             'group_id' => 'required',
             'user_id' => 'required'
         ]);
-
-
-//        GroupMembership::find()
 
         GroupMembership::where('user_id', '=', $request['user_id'])
             ->where('group_id', '=', $request['group_id'])

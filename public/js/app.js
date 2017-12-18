@@ -53805,12 +53805,17 @@ var Group = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
 
         _this.state = {
-            group: props
+            group: props.group
         };
         return _this;
     }
 
     _createClass(Group, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState({ group: nextProps.group });
+        }
+    }, {
         key: 'render',
         value: function render() {
             if (!this.state.group) {

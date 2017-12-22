@@ -57,15 +57,15 @@ Route::put('products/{product}','ProductsController@update');
 Route::delete('products/{product}', 'ProductsController@delete');
 
 
+// groups
 Route::get('groups', 'GroupsController@index');
-
 Route::post('groups','GroupsController@store');
-
 Route::delete('groups/{group}','GroupsController@delete');
+Route::put('groups/{group}','GroupsController@update');
 
-
-Route::get('groups/user/{user}','GroupsController@joinedGroups');
 
 //membership
+Route::get('groups/user/{user}','GroupsController@joinedGroups');
+
 Route::post('groups/membership/join','GroupsController@join');
 Route::delete('groups/membership/leave','GroupsController@leaveGroup');

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Product from "./Product.js";
 import AddGroup from "./AddGroup.js";
 import Group from "./Group";
+import EditGroup from "./EditGroup";
+
 
 /* Main Component */
 class Main extends Component {
@@ -24,6 +26,7 @@ class Main extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleJoinGroup = this.handleJoinGroup.bind(this);
         this.handleLeaveGroup = this.handleLeaveGroup.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
 
     }
 
@@ -42,7 +45,7 @@ class Main extends Component {
         return this.state.groups.map(group => {
             return (
                 //this.handleClick() method is invoked onClick.
-                <li onClick={
+                <li className={"list-group-item"} onClick={
                     () =>this.handleClick(group)} key={group.id} >
                     { group.group_name }
                 </li>
@@ -143,16 +146,40 @@ class Main extends Component {
             });
     }
 
+    handleUpdate(group) {
+
+        const currentGroup = this.state.currentGroup;
+        fetch( 'api/groups/' + this.state.currentGroup.id, {
+            method:'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(group)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then( data => {
+                /* Updating the state */
+                var array = this.state.groups.filter(function(item) {
+                    return item !== currentGroup
+                })
+                this.setState((prevState)=> ({
+                    groups: array.concat(group),
+                    currentGroup : group
+                }))
+            })
+    }
+
     render() {
         return (
             /* The extra divs are for the css styles */
             <div className={"row"}>
                 <div className={"col-lg-6"}>
-                    <div>
+                    <div >
                         <h3> All groups </h3>
-                        <ul>
-                            {/*{ this.renderProducts() }*/}
-
+                        <ul className={"list-group"}>
                             {this.renderGroups() }
                         </ul>
                     </div>
@@ -168,6 +195,7 @@ class Main extends Component {
                     <button onClick={this.handleJoinGroup}>Join group</button>
                     <button onClick={this.handleLeaveGroup}>Leave group</button>
                     <Group group={this.state.currentGroup} />
+                    <EditGroup group={this.state.currentGroup} handleUpdate={this.handleUpdate}/>
 
                 </div>
             </div>

@@ -1,28 +1,5 @@
 import React, { Component } from 'react';
 
-/* Stateless component or pure component
- * { product } syntax is the object destructing
- */
-// const Group = ({group}) => {
-//
-//     const divStyle = {
-//         /*code omitted for brevity */
-//     }
-//
-//     //if the props product is null, return Product doesn't exist
-//     if(!group) {
-//         return(<div style={divStyle}>  Group doesn't exist </div>);
-//     }
-//
-//     //Else, display the product data
-//     return(
-//         <div style={divStyle}>
-//             <h2> {group.group_name} </h2>
-//             <p> {group.group_desc} </p>
-//         </div>
-//     )
-// }
-
 class Group extends Component {
     constructor(props){
         super(props);
@@ -34,6 +11,8 @@ class Group extends Component {
     componentWillReceiveProps(nextProps){
         this.setState({group:nextProps.group});
     }
+
+
 
     render(){
         if(!this.state.group) {

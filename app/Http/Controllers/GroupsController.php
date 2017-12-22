@@ -38,6 +38,13 @@ class GroupsController extends Controller
 
     }
 
+    public function update(Request $request, Group $group)
+    {
+        $group->update($request->all());
+
+        return response()->json($group, 200);
+    }
+
     public function delete(Group $group)
     {
         $group->delete();
